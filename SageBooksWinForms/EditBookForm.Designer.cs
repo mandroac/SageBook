@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            bookSagesComboBox = new ComboBox();
             sageBindingSource = new BindingSource(components);
             bookSagesLabel = new Label();
             bookDescriptionRichTextBox = new RichTextBox();
@@ -39,19 +38,9 @@
             saveChangesButton = new Button();
             deleteBookButton = new Button();
             cancelButton = new Button();
+            bookSagesCheckedListBox = new CheckedListBox();
             ((System.ComponentModel.ISupportInitialize)sageBindingSource).BeginInit();
             SuspendLayout();
-            // 
-            // bookSagesComboBox
-            // 
-            bookSagesComboBox.DataSource = sageBindingSource;
-            bookSagesComboBox.DisplayMember = "Name";
-            bookSagesComboBox.FormattingEnabled = true;
-            bookSagesComboBox.Location = new Point(119, 245);
-            bookSagesComboBox.Name = "bookSagesComboBox";
-            bookSagesComboBox.Size = new Size(546, 28);
-            bookSagesComboBox.TabIndex = 21;
-            bookSagesComboBox.ValueMember = "Sage.Name";
             // 
             // sageBindingSource
             // 
@@ -60,51 +49,54 @@
             // bookSagesLabel
             // 
             bookSagesLabel.AutoSize = true;
-            bookSagesLabel.Location = new Point(14, 248);
+            bookSagesLabel.Location = new Point(12, 186);
             bookSagesLabel.Name = "bookSagesLabel";
-            bookSagesLabel.Size = new Size(51, 20);
+            bookSagesLabel.Size = new Size(40, 15);
             bookSagesLabel.TabIndex = 20;
             bookSagesLabel.Text = "Sages:";
             // 
             // bookDescriptionRichTextBox
             // 
-            bookDescriptionRichTextBox.Location = new Point(119, 53);
+            bookDescriptionRichTextBox.Location = new Point(104, 40);
+            bookDescriptionRichTextBox.Margin = new Padding(3, 2, 3, 2);
             bookDescriptionRichTextBox.Name = "bookDescriptionRichTextBox";
-            bookDescriptionRichTextBox.Size = new Size(546, 177);
+            bookDescriptionRichTextBox.Size = new Size(478, 134);
             bookDescriptionRichTextBox.TabIndex = 19;
             bookDescriptionRichTextBox.Text = "";
             // 
             // bookNameTextBox
             // 
-            bookNameTextBox.Location = new Point(119, 12);
+            bookNameTextBox.Location = new Point(104, 9);
+            bookNameTextBox.Margin = new Padding(3, 2, 3, 2);
             bookNameTextBox.Name = "bookNameTextBox";
-            bookNameTextBox.Size = new Size(546, 27);
+            bookNameTextBox.Size = new Size(478, 23);
             bookNameTextBox.TabIndex = 18;
             // 
             // bookDescriptionLabel
             // 
             bookDescriptionLabel.AutoSize = true;
-            bookDescriptionLabel.Location = new Point(14, 48);
+            bookDescriptionLabel.Location = new Point(12, 36);
             bookDescriptionLabel.Name = "bookDescriptionLabel";
-            bookDescriptionLabel.Size = new Size(88, 20);
+            bookDescriptionLabel.Size = new Size(70, 15);
             bookDescriptionLabel.TabIndex = 17;
             bookDescriptionLabel.Text = "Description:";
             // 
             // bookNameLabel
             // 
             bookNameLabel.AutoSize = true;
-            bookNameLabel.Location = new Point(14, 15);
+            bookNameLabel.Location = new Point(12, 11);
             bookNameLabel.Name = "bookNameLabel";
-            bookNameLabel.Size = new Size(52, 20);
+            bookNameLabel.Size = new Size(42, 15);
             bookNameLabel.TabIndex = 16;
             bookNameLabel.Text = "Name:";
             // 
             // saveChangesButton
             // 
             saveChangesButton.BackColor = Color.PaleGreen;
-            saveChangesButton.Location = new Point(423, 290);
+            saveChangesButton.Location = new Point(475, 277);
+            saveChangesButton.Margin = new Padding(3, 2, 3, 2);
             saveChangesButton.Name = "saveChangesButton";
-            saveChangesButton.Size = new Size(118, 29);
+            saveChangesButton.Size = new Size(103, 32);
             saveChangesButton.TabIndex = 22;
             saveChangesButton.Text = "Save changes";
             saveChangesButton.UseVisualStyleBackColor = false;
@@ -113,9 +105,10 @@
             // deleteBookButton
             // 
             deleteBookButton.BackColor = Color.IndianRed;
-            deleteBookButton.Location = new Point(547, 290);
+            deleteBookButton.Location = new Point(368, 278);
+            deleteBookButton.Margin = new Padding(3, 2, 3, 2);
             deleteBookButton.Name = "deleteBookButton";
-            deleteBookButton.Size = new Size(115, 29);
+            deleteBookButton.Size = new Size(101, 31);
             deleteBookButton.TabIndex = 23;
             deleteBookButton.Text = "Delete book";
             deleteBookButton.UseVisualStyleBackColor = false;
@@ -123,28 +116,38 @@
             // 
             // cancelButton
             // 
-            cancelButton.Location = new Point(14, 290);
+            cancelButton.Location = new Point(12, 278);
+            cancelButton.Margin = new Padding(3, 2, 3, 2);
             cancelButton.Name = "cancelButton";
-            cancelButton.Size = new Size(94, 29);
+            cancelButton.Size = new Size(82, 32);
             cancelButton.TabIndex = 24;
             cancelButton.Text = "Cancel";
             cancelButton.UseVisualStyleBackColor = true;
             cancelButton.Click += cancelButton_Click;
             // 
+            // bookSagesCheckedListBox
+            // 
+            bookSagesCheckedListBox.FormattingEnabled = true;
+            bookSagesCheckedListBox.Location = new Point(104, 179);
+            bookSagesCheckedListBox.Name = "bookSagesCheckedListBox";
+            bookSagesCheckedListBox.Size = new Size(478, 94);
+            bookSagesCheckedListBox.TabIndex = 25;
+            // 
             // EditBookForm
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(674, 331);
+            ClientSize = new Size(590, 316);
+            Controls.Add(bookSagesCheckedListBox);
             Controls.Add(cancelButton);
             Controls.Add(deleteBookButton);
             Controls.Add(saveChangesButton);
-            Controls.Add(bookSagesComboBox);
             Controls.Add(bookSagesLabel);
             Controls.Add(bookDescriptionRichTextBox);
             Controls.Add(bookNameTextBox);
             Controls.Add(bookDescriptionLabel);
             Controls.Add(bookNameLabel);
+            Margin = new Padding(3, 2, 3, 2);
             Name = "EditBookForm";
             Text = "EditBookForm";
             Load += EditBookForm_Load;
@@ -154,8 +157,6 @@
         }
 
         #endregion
-
-        private ComboBox bookSagesComboBox;
         private Label bookSagesLabel;
         private RichTextBox bookDescriptionRichTextBox;
         private TextBox bookNameTextBox;
@@ -165,5 +166,6 @@
         private Button deleteBookButton;
         private Button cancelButton;
         private BindingSource sageBindingSource;
+        private CheckedListBox bookSagesCheckedListBox;
     }
 }

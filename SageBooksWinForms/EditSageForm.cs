@@ -4,23 +4,38 @@ using System.Drawing.Imaging;
 
 namespace SageBooksWinForms
 {
-    public partial class EditSageForm : Form
+    public partial class EditSageForm : Form, IEditModelForm<Sage>
     {
         private readonly Sage _sage;
         private readonly IEnumerable<Book> _books;
 
-        public EditSageForm(Sage sage, IEnumerable<Book> books)
+        public event EventHandler<Sage> ModelUpdatedEvent;
+        public event EventHandler<Sage> ModelDeletedEvent;
+        public event EventHandler<Sage> ModelCreatedEvent;
+
+        public bool IsEditMode { get; set; }
+
+        public EditSageForm(Sage sage, IEnumerable<Book> books, bool isEditMode = true)
         {
             _sage = sage;
             _books = books;
+            IsEditMode = isEditMode;
             InitializeComponent();
         }
 
-        public event EventHandler<Sage> SageUpdatedEvent;
-        public event EventHandler<Sage> SageDeletedEvent;
-
         private void EditSageForm_Load(object sender, EventArgs e)
         {
+            if (IsEditMode)
+            {
+                Text = "Edit Sage";
+                deleteSageButton.Show();
+            }
+            else
+            {
+                Text = "Create Sage";
+                deleteSageButton.Hide();
+            }
+
             if (_sage.Photo is not null)
             {
                 using var ms = new MemoryStream(_sage.Photo);
@@ -31,7 +46,20 @@ namespace SageBooksWinForms
             sageNameTextBox.Text = _sage.Name;
             sageAgeNumericUpDown.Value = _sage.Age;
             sageCityListBox.Text = _sage.City;
-            sageBooksComboBox.DataSource = new BindingList<Book>(_books.ToArray());
+
+            sageBooksCheckedListBox.DataSource = new BindingList<Book>(_books.ToArray());
+
+            _sage.Books?.ToList().ForEach(book =>
+            {
+                for (int i = 0; i < _books.Count(); ++i)
+                {
+                    if (_books.ElementAt(i).Id == book.Id)
+                    {
+                        sageBooksCheckedListBox.SetItemChecked(i, true);
+                        break;
+                    }
+                }
+            });
         }
 
         private void sagePhotoButton_Click(object sender, EventArgs e)
@@ -59,7 +87,7 @@ namespace SageBooksWinForms
 
         private void deleteSageButton_Click(object sender, EventArgs e)
         {
-            SageDeletedEvent?.Invoke(this, _sage);
+            ModelDeletedEvent?.Invoke(this, _sage);
             Close();
         }
 
@@ -68,15 +96,25 @@ namespace SageBooksWinForms
             _sage.Name = sageNameTextBox.Text;
             _sage.Age = (int)sageAgeNumericUpDown.Value;
             _sage.City = sageCityListBox.Text;
+            _sage.Books = sageBooksCheckedListBox.CheckedItems.Cast<Book>().ToList();
 
             if (!string.IsNullOrEmpty(openFileDialog1.FileName))
             {
                 using var ms = new MemoryStream();
+                ms.Seek(0, SeekOrigin.Begin);
                 sagePhotoPictureBox.Image.Save(ms, ImageFormat.Png);
                 _sage.Photo = ms.ToArray();
             }
 
-            SageUpdatedEvent?.Invoke(this, _sage);
+            if (IsEditMode)
+            {
+                ModelUpdatedEvent?.Invoke(this, _sage);
+            }
+            else
+            {
+                ModelCreatedEvent?.Invoke(this, _sage);
+            }
+
             Close();
         }
     }

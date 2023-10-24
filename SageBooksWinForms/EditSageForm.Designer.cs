@@ -31,7 +31,6 @@
             selectedSagePhotoLabel = new Label();
             sagePhotoButton = new Button();
             sagePhotoLabel = new Label();
-            sageBooksComboBox = new ComboBox();
             sageBooksLabel = new Label();
             sageCityListBox = new ListBox();
             sageCityLabel = new Label();
@@ -44,6 +43,7 @@
             saveChangesButton = new Button();
             sagePhotoPictureBox = new PictureBox();
             openFileDialog1 = new OpenFileDialog();
+            sageBooksCheckedListBox = new CheckedListBox();
             ((System.ComponentModel.ISupportInitialize)sageAgeNumericUpDown).BeginInit();
             ((System.ComponentModel.ISupportInitialize)sagePhotoPictureBox).BeginInit();
             SuspendLayout();
@@ -74,16 +74,6 @@
             sagePhotoLabel.Name = "sagePhotoLabel";
             sagePhotoLabel.Size = new Size(0, 15);
             sagePhotoLabel.TabIndex = 26;
-            // 
-            // sageBooksComboBox
-            // 
-            sageBooksComboBox.DisplayMember = "Name";
-            sageBooksComboBox.FormattingEnabled = true;
-            sageBooksComboBox.Location = new Point(108, 269);
-            sageBooksComboBox.Margin = new Padding(3, 2, 3, 2);
-            sageBooksComboBox.Name = "sageBooksComboBox";
-            sageBooksComboBox.Size = new Size(467, 23);
-            sageBooksComboBox.TabIndex = 25;
             // 
             // sageBooksLabel
             // 
@@ -150,10 +140,10 @@
             // 
             // cancelButton
             // 
-            cancelButton.Location = new Point(14, 305);
+            cancelButton.Location = new Point(14, 368);
             cancelButton.Margin = new Padding(3, 2, 3, 2);
             cancelButton.Name = "cancelButton";
-            cancelButton.Size = new Size(82, 22);
+            cancelButton.Size = new Size(82, 32);
             cancelButton.TabIndex = 31;
             cancelButton.Text = "Cancel";
             cancelButton.UseVisualStyleBackColor = true;
@@ -162,10 +152,10 @@
             // deleteSageButton
             // 
             deleteSageButton.BackColor = Color.IndianRed;
-            deleteSageButton.Location = new Point(473, 305);
+            deleteSageButton.Location = new Point(364, 368);
             deleteSageButton.Margin = new Padding(3, 2, 3, 2);
             deleteSageButton.Name = "deleteSageButton";
-            deleteSageButton.Size = new Size(101, 22);
+            deleteSageButton.Size = new Size(101, 32);
             deleteSageButton.TabIndex = 30;
             deleteSageButton.Text = "Delete sage";
             deleteSageButton.UseVisualStyleBackColor = false;
@@ -174,10 +164,10 @@
             // saveChangesButton
             // 
             saveChangesButton.BackColor = Color.PaleGreen;
-            saveChangesButton.Location = new Point(365, 305);
+            saveChangesButton.Location = new Point(471, 368);
             saveChangesButton.Margin = new Padding(3, 2, 3, 2);
             saveChangesButton.Name = "saveChangesButton";
-            saveChangesButton.Size = new Size(103, 22);
+            saveChangesButton.Size = new Size(103, 32);
             saveChangesButton.TabIndex = 29;
             saveChangesButton.Text = "Save changes";
             saveChangesButton.UseVisualStyleBackColor = false;
@@ -196,11 +186,20 @@
             // 
             openFileDialog1.FileName = "openFileDialog1";
             // 
+            // sageBooksCheckedListBox
+            // 
+            sageBooksCheckedListBox.FormattingEnabled = true;
+            sageBooksCheckedListBox.Location = new Point(108, 269);
+            sageBooksCheckedListBox.Name = "sageBooksCheckedListBox";
+            sageBooksCheckedListBox.Size = new Size(467, 94);
+            sageBooksCheckedListBox.TabIndex = 33;
+            // 
             // EditSageForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(588, 336);
+            ClientSize = new Size(588, 411);
+            Controls.Add(sageBooksCheckedListBox);
             Controls.Add(sagePhotoPictureBox);
             Controls.Add(cancelButton);
             Controls.Add(deleteSageButton);
@@ -208,7 +207,6 @@
             Controls.Add(selectedSagePhotoLabel);
             Controls.Add(sagePhotoButton);
             Controls.Add(sagePhotoLabel);
-            Controls.Add(sageBooksComboBox);
             Controls.Add(sageBooksLabel);
             Controls.Add(sageCityListBox);
             Controls.Add(sageCityLabel);
@@ -231,7 +229,6 @@
         private Label selectedSagePhotoLabel;
         private Button sagePhotoButton;
         private Label sagePhotoLabel;
-        private ComboBox sageBooksComboBox;
         private Label sageBooksLabel;
         private ListBox sageCityListBox;
         private Label sageCityLabel;
@@ -244,5 +241,6 @@
         private Button saveChangesButton;
         private PictureBox sagePhotoPictureBox;
         private OpenFileDialog openFileDialog1;
+        private CheckedListBox sageBooksCheckedListBox;
     }
 }

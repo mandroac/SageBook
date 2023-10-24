@@ -3,29 +3,53 @@ using System.ComponentModel;
 
 namespace SageBooksWinForms
 {
-    public partial class EditBookForm : Form
+    public partial class EditBookForm : Form, IEditModelForm<Book>
     {
         private readonly Book _book;
         private readonly IEnumerable<Sage> _sages;
 
-        public EditBookForm(Book book, IEnumerable<Sage> sages)
+        public bool IsEditMode { get; set; }
+
+        public event EventHandler<Book> ModelUpdatedEvent;
+        public event EventHandler<Book> ModelDeletedEvent;
+        public event EventHandler<Book> ModelCreatedEvent;
+
+        public EditBookForm(Book book, IEnumerable<Sage> sages, bool isEditMode = true)
         {
             _book = book;
             _sages = sages;
+            IsEditMode = isEditMode;
             InitializeComponent();
         }
 
-        public event EventHandler<Book> BookUpdatedEvent;
-        public event EventHandler<Book> BookDeletedEvent;
-
         private void EditBookForm_Load(object sender, EventArgs e)
         {
+            if (IsEditMode)
+            {
+                Text = "Edit Book";
+                deleteBookButton.Show();
+            }
+            else
+            {
+                Text = "Create Book";
+                deleteBookButton.Hide();
+            }
+
             bookNameTextBox.Text = _book.Name;
             bookDescriptionRichTextBox.Text = _book.Description;
-            bookSagesComboBox.DataSource = new BindingList<Sage>(_sages.ToArray());
+            bookSagesCheckedListBox.DataSource = new BindingList<Sage>(_sages.ToArray());
 
-            // TODO: update this
-            bookSagesComboBox.SelectedValue = _sages.FirstOrDefault(s => s.Id == _book.Sages.FirstOrDefault()?.Id);
+            _book.Sages?.ToList().ForEach(sage =>
+            {
+                for (int i = 0; i < _sages.Count(); ++i)
+                {
+                    if (_sages.ElementAt(i).Id == sage.Id)
+                    {
+                        bookSagesCheckedListBox.SetItemChecked(i, true);
+                        break;
+                    }
+                }
+            });
         }
 
         private void cancelButton_Click(object sender, EventArgs e)
@@ -37,15 +61,23 @@ namespace SageBooksWinForms
         {
             _book.Name = bookNameTextBox.Text;
             _book.Description = bookDescriptionRichTextBox.Text;
+            _book.Sages = bookSagesCheckedListBox.CheckedItems.Cast<Sage>().ToList();
 
-            BookUpdatedEvent?.Invoke(this, _book);
+            if (IsEditMode)
+            {
+                ModelUpdatedEvent?.Invoke(this, _book);
+            }
+            else
+            {
+                ModelCreatedEvent?.Invoke(this, _book);
+            }
+
             Close();
-
         }
 
         private void deleteBookButton_Click(object sender, EventArgs e)
         {
-            BookDeletedEvent?.Invoke(this, _book);
+            ModelDeletedEvent?.Invoke(this, _book);
             Close();
         }
     }
