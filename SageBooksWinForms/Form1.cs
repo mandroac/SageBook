@@ -7,10 +7,10 @@ namespace SageBooksWinForms
 {
     public partial class Form1 : Form
     {
-        private protected SageBookDbContext _context;
+        private protected SageBookDbContext _dbContext;
         public Form1()
         {
-            _context = new SageBookDbContext();
+            _dbContext = new SageBookDbContext();
             InitializeComponent();
         }
 
@@ -31,8 +31,8 @@ namespace SageBooksWinForms
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            var sages = _context.Sages.Include(s => s.Books).ToList();
-            var books = _context.Books.Include(b => b.Sages).ToList();
+            var sages = _dbContext.Sages.Include(s => s.Books).ToList();
+            var books = _dbContext.Books.Include(b => b.Sages).ToList();
             sageBindingSource.DataSource = new BindingList<Sage>(sages);
             bookBindingSource.DataSource = new BindingList<Book>(books);
         }
@@ -47,8 +47,8 @@ namespace SageBooksWinForms
                 Description = bookDescriptionRichTextBox.Text,
                 Sages = new List<Sage>(new[] { (Sage)bookSagesComboBox.SelectedItem })
             };
-            _context.Books.Add(newBook);
-            _context.SaveChanges();
+            _dbContext.Books.Add(newBook);
+            _dbContext.SaveChanges();
 
             (bookBindingSource.DataSource as BindingList<Book>)!.Add(newBook);
         }
@@ -74,14 +74,18 @@ namespace SageBooksWinForms
                 newSage.Photo = memoryStream.ToArray();
             }
 
-            _context.Sages.Add(newSage);
-            _context.SaveChanges();
+            _dbContext.Sages.Add(newSage);
+            _dbContext.SaveChanges();
 
             (sageBindingSource.DataSource as BindingList<Sage>)!.Add(newSage);
         }
 
         private void booksDataGrid_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
+            if (e.ColumnIndex == 0)
+            {
+                e.Value = "Details";
+            }
             if (e.ColumnIndex == 3 && (e.Value is IEnumerable<Sage> sagesList))
             {
                 e.Value = string.Join(", ", sagesList.Select(sl => sl.Name));
@@ -90,7 +94,11 @@ namespace SageBooksWinForms
 
         private void sagesDataGrid_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            if (e.ColumnIndex == 4 && (e.Value is IEnumerable<Book> booksList))
+            if (e.ColumnIndex == 0)
+            {
+                e.Value = "Details";
+            }
+            if (e.ColumnIndex == 5 && (e.Value is IEnumerable<Book> booksList))
             {
                 e.Value = string.Join(", ", booksList.Select(bl => bl.Name));
             }
@@ -166,8 +174,62 @@ namespace SageBooksWinForms
             {
                 var book = books[e.RowIndex];
                 var bookEditForm = new EditBookForm(book, sageBindingSource.DataSource as IEnumerable<Sage>);
+                bookEditForm.BookUpdatedEvent += bookEditForm_BookUpdated;
+                bookEditForm.BookDeletedEvent += bookEditForm_BookDeleted;
                 bookEditForm.ShowDialog(this);
             }
+        }
+
+        private void bookEditForm_BookUpdated(object sender, Book book)
+        {
+            _dbContext.Update(book);
+            _dbContext.SaveChanges();
+
+            var booksBindingList = bookBindingSource.DataSource as BindingList<Book>;
+            var initialBook = booksBindingList.SingleOrDefault(b => b.Id == book.Id);
+            initialBook = book;
+
+            booksBindingList.ResetBindings();
+        }
+
+        private void bookEditForm_BookDeleted(object sender, Book book)
+        {
+            _dbContext.Remove(book);
+            _dbContext.SaveChanges();
+
+            (bookBindingSource.DataSource as BindingList<Book>).Remove(book);
+        }
+
+        private void sagesDataGrid_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == 0 && sageBindingSource.DataSource is BindingList<Sage> sages)
+            {
+                var sage = sages[e.RowIndex];
+                var sageEditForm = new EditSageForm(sage, bookBindingSource.DataSource as IEnumerable<Book>);
+                sageEditForm.SageUpdatedEvent += sageEditForm_SageUpdated;
+                sageEditForm.SageDeletedEvent += sageEditForm_SageDeleted;
+                sageEditForm.ShowDialog(this);
+            }
+        }
+
+        private void sageEditForm_SageUpdated(object sender, Sage sage)
+        {
+            _dbContext.Update(sage);
+            _dbContext.SaveChanges();
+
+            var sagesBindingList = sageBindingSource.DataSource as BindingList<Sage>;
+            var initialSage = sagesBindingList.SingleOrDefault(s => s.Id == sage.Id);
+            initialSage = sage;
+
+            sagesBindingList.ResetBindings();
+        }
+
+        private void sageEditForm_SageDeleted(object sender, Sage sage)
+        {
+            _dbContext.Remove(sage);
+            _dbContext.SaveChanges();
+
+            (sageBindingSource.DataSource as BindingList<Sage>).Remove(sage);
         }
     }
 }

@@ -64,6 +64,7 @@
             sageNameLabel = new Label();
             addSageLabel = new Label();
             sagesDataGrid = new DataGridView();
+            SageDetails = new DataGridViewLinkColumn();
             Photo = new DataGridViewImageColumn();
             nameDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             ageDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
@@ -88,10 +89,11 @@
             // 
             tabControl1.Controls.Add(booksTab);
             tabControl1.Controls.Add(sagesTab);
-            tabControl1.Location = new Point(12, 12);
+            tabControl1.Location = new Point(10, 9);
+            tabControl1.Margin = new Padding(3, 2, 3, 2);
             tabControl1.Name = "tabControl1";
             tabControl1.SelectedIndex = 0;
-            tabControl1.Size = new Size(1270, 613);
+            tabControl1.Size = new Size(1111, 460);
             tabControl1.TabIndex = 1;
             // 
             // booksTab
@@ -105,10 +107,11 @@
             booksTab.Controls.Add(bookNameLabel);
             booksTab.Controls.Add(addBookLabel);
             booksTab.Controls.Add(booksDataGrid);
-            booksTab.Location = new Point(4, 29);
+            booksTab.Location = new Point(4, 24);
+            booksTab.Margin = new Padding(3, 2, 3, 2);
             booksTab.Name = "booksTab";
-            booksTab.Padding = new Padding(3);
-            booksTab.Size = new Size(1262, 580);
+            booksTab.Padding = new Padding(3, 2, 3, 2);
+            booksTab.Size = new Size(1103, 432);
             booksTab.TabIndex = 0;
             booksTab.Text = "Books";
             booksTab.UseVisualStyleBackColor = true;
@@ -118,9 +121,10 @@
             bookSagesComboBox.DataSource = sageBindingSource;
             bookSagesComboBox.DisplayMember = "Name";
             bookSagesComboBox.FormattingEnabled = true;
-            bookSagesComboBox.Location = new Point(129, 271);
+            bookSagesComboBox.Location = new Point(113, 203);
+            bookSagesComboBox.Margin = new Padding(3, 2, 3, 2);
             bookSagesComboBox.Name = "bookSagesComboBox";
-            bookSagesComboBox.Size = new Size(1095, 28);
+            bookSagesComboBox.Size = new Size(959, 23);
             bookSagesComboBox.TabIndex = 15;
             // 
             // sageBindingSource
@@ -129,9 +133,10 @@
             // 
             // saveBookButton
             // 
-            saveBookButton.Location = new Point(1130, 3);
+            saveBookButton.Location = new Point(989, 2);
+            saveBookButton.Margin = new Padding(3, 2, 3, 2);
             saveBookButton.Name = "saveBookButton";
-            saveBookButton.Size = new Size(94, 29);
+            saveBookButton.Size = new Size(82, 22);
             saveBookButton.TabIndex = 14;
             saveBookButton.Text = "Save";
             saveBookButton.UseVisualStyleBackColor = true;
@@ -140,53 +145,55 @@
             // bookSagesLabel
             // 
             bookSagesLabel.AutoSize = true;
-            bookSagesLabel.Location = new Point(24, 274);
+            bookSagesLabel.Location = new Point(21, 206);
             bookSagesLabel.Name = "bookSagesLabel";
-            bookSagesLabel.Size = new Size(51, 20);
+            bookSagesLabel.Size = new Size(40, 15);
             bookSagesLabel.TabIndex = 6;
             bookSagesLabel.Text = "Sages:";
             // 
             // bookDescriptionRichTextBox
             // 
-            bookDescriptionRichTextBox.Location = new Point(129, 79);
+            bookDescriptionRichTextBox.Location = new Point(113, 59);
+            bookDescriptionRichTextBox.Margin = new Padding(3, 2, 3, 2);
             bookDescriptionRichTextBox.Name = "bookDescriptionRichTextBox";
-            bookDescriptionRichTextBox.Size = new Size(1095, 177);
+            bookDescriptionRichTextBox.Size = new Size(959, 134);
             bookDescriptionRichTextBox.TabIndex = 5;
             bookDescriptionRichTextBox.Text = "";
             bookDescriptionRichTextBox.Validating += bookDescriptionRichTextBox_Validating;
             // 
             // bookNameTextBox
             // 
-            bookNameTextBox.Location = new Point(129, 38);
+            bookNameTextBox.Location = new Point(113, 28);
+            bookNameTextBox.Margin = new Padding(3, 2, 3, 2);
             bookNameTextBox.Name = "bookNameTextBox";
-            bookNameTextBox.Size = new Size(1095, 27);
+            bookNameTextBox.Size = new Size(959, 23);
             bookNameTextBox.TabIndex = 4;
             bookNameTextBox.Validating += bookNameTextBox_Validating;
             // 
             // bookDescriptionLabel
             // 
             bookDescriptionLabel.AutoSize = true;
-            bookDescriptionLabel.Location = new Point(24, 74);
+            bookDescriptionLabel.Location = new Point(21, 56);
             bookDescriptionLabel.Name = "bookDescriptionLabel";
-            bookDescriptionLabel.Size = new Size(88, 20);
+            bookDescriptionLabel.Size = new Size(70, 15);
             bookDescriptionLabel.TabIndex = 3;
             bookDescriptionLabel.Text = "Description:";
             // 
             // bookNameLabel
             // 
             bookNameLabel.AutoSize = true;
-            bookNameLabel.Location = new Point(24, 41);
+            bookNameLabel.Location = new Point(21, 31);
             bookNameLabel.Name = "bookNameLabel";
-            bookNameLabel.Size = new Size(52, 20);
+            bookNameLabel.Size = new Size(42, 15);
             bookNameLabel.TabIndex = 2;
             bookNameLabel.Text = "Name:";
             // 
             // addBookLabel
             // 
             addBookLabel.AutoSize = true;
-            addBookLabel.Location = new Point(590, 13);
+            addBookLabel.Location = new Point(516, 10);
             addBookLabel.Name = "addBookLabel";
-            addBookLabel.Size = new Size(109, 20);
+            addBookLabel.Size = new Size(86, 15);
             addBookLabel.TabIndex = 1;
             addBookLabel.Text = "Add New Book";
             addBookLabel.TextAlign = ContentAlignment.MiddleCenter;
@@ -196,27 +203,31 @@
             booksDataGrid.AllowUserToAddRows = false;
             booksDataGrid.AllowUserToDeleteRows = false;
             booksDataGrid.AutoGenerateColumns = false;
+            booksDataGrid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             booksDataGrid.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             booksDataGrid.Columns.AddRange(new DataGridViewColumn[] { Details, nameDataGridViewTextBoxColumn1, descriptionDataGridViewTextBoxColumn, Sages });
             booksDataGrid.DataSource = bookBindingSource;
-            booksDataGrid.Location = new Point(24, 318);
+            booksDataGrid.Location = new Point(21, 238);
+            booksDataGrid.Margin = new Padding(3, 2, 3, 2);
             booksDataGrid.Name = "booksDataGrid";
             booksDataGrid.ReadOnly = true;
             booksDataGrid.RowHeadersWidth = 51;
             booksDataGrid.RowTemplate.Height = 29;
-            booksDataGrid.Size = new Size(1200, 262);
+            booksDataGrid.Size = new Size(1050, 196);
             booksDataGrid.TabIndex = 0;
             booksDataGrid.CellClick += booksDataGrid_CellClick;
             booksDataGrid.CellFormatting += booksDataGrid_CellFormatting;
             // 
             // Details
             // 
+            Details.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             Details.HeaderText = "";
             Details.MinimumWidth = 6;
             Details.Name = "Details";
             Details.ReadOnly = true;
+            Details.Resizable = DataGridViewTriState.False;
             Details.Text = "Details";
-            Details.Width = 125;
+            Details.Width = 6;
             // 
             // nameDataGridViewTextBoxColumn1
             // 
@@ -227,10 +238,11 @@
             nameDataGridViewTextBoxColumn1.MinimumWidth = 125;
             nameDataGridViewTextBoxColumn1.Name = "nameDataGridViewTextBoxColumn1";
             nameDataGridViewTextBoxColumn1.ReadOnly = true;
-            nameDataGridViewTextBoxColumn1.Width = 400;
+            nameDataGridViewTextBoxColumn1.Width = 125;
             // 
             // descriptionDataGridViewTextBoxColumn
             // 
+            descriptionDataGridViewTextBoxColumn.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
             descriptionDataGridViewTextBoxColumn.DataPropertyName = "Description";
             dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
             descriptionDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle2;
@@ -238,7 +250,7 @@
             descriptionDataGridViewTextBoxColumn.MinimumWidth = 300;
             descriptionDataGridViewTextBoxColumn.Name = "descriptionDataGridViewTextBoxColumn";
             descriptionDataGridViewTextBoxColumn.ReadOnly = true;
-            descriptionDataGridViewTextBoxColumn.Width = 447;
+            descriptionDataGridViewTextBoxColumn.Width = 300;
             // 
             // Sages
             // 
@@ -271,10 +283,11 @@
             sagesTab.Controls.Add(sageNameLabel);
             sagesTab.Controls.Add(addSageLabel);
             sagesTab.Controls.Add(sagesDataGrid);
-            sagesTab.Location = new Point(4, 29);
+            sagesTab.Location = new Point(4, 24);
+            sagesTab.Margin = new Padding(3, 2, 3, 2);
             sagesTab.Name = "sagesTab";
-            sagesTab.Padding = new Padding(3);
-            sagesTab.Size = new Size(1262, 580);
+            sagesTab.Padding = new Padding(3, 2, 3, 2);
+            sagesTab.Size = new Size(1103, 432);
             sagesTab.TabIndex = 1;
             sagesTab.Text = "Sages";
             sagesTab.UseVisualStyleBackColor = true;
@@ -282,17 +295,17 @@
             // selectedSagePhotoLabel
             // 
             selectedSagePhotoLabel.AutoSize = true;
-            selectedSagePhotoLabel.Location = new Point(297, 57);
+            selectedSagePhotoLabel.Location = new Point(260, 43);
             selectedSagePhotoLabel.Name = "selectedSagePhotoLabel";
-            selectedSagePhotoLabel.Size = new Size(46, 20);
+            selectedSagePhotoLabel.Size = new Size(0, 15);
             selectedSagePhotoLabel.TabIndex = 17;
-            selectedSagePhotoLabel.Text = "TEMP";
             // 
             // sagePhotoButton
             // 
-            sagePhotoButton.Location = new Point(129, 53);
+            sagePhotoButton.Location = new Point(113, 40);
+            sagePhotoButton.Margin = new Padding(3, 2, 3, 2);
             sagePhotoButton.Name = "sagePhotoButton";
-            sagePhotoButton.Size = new Size(153, 29);
+            sagePhotoButton.Size = new Size(134, 22);
             sagePhotoButton.TabIndex = 16;
             sagePhotoButton.Text = "Click to select photo";
             sagePhotoButton.UseVisualStyleBackColor = true;
@@ -301,9 +314,9 @@
             // sagePhotoLabel
             // 
             sagePhotoLabel.AutoSize = true;
-            sagePhotoLabel.Location = new Point(24, 57);
+            sagePhotoLabel.Location = new Point(21, 43);
             sagePhotoLabel.Name = "sagePhotoLabel";
-            sagePhotoLabel.Size = new Size(51, 20);
+            sagePhotoLabel.Size = new Size(42, 15);
             sagePhotoLabel.TabIndex = 15;
             sagePhotoLabel.Text = "Photo:";
             // 
@@ -312,16 +325,18 @@
             sageBooksComboBox.DataSource = bookBindingSource;
             sageBooksComboBox.DisplayMember = "Name";
             sageBooksComboBox.FormattingEnabled = true;
-            sageBooksComboBox.Location = new Point(129, 239);
+            sageBooksComboBox.Location = new Point(113, 179);
+            sageBooksComboBox.Margin = new Padding(3, 2, 3, 2);
             sageBooksComboBox.Name = "sageBooksComboBox";
-            sageBooksComboBox.Size = new Size(1092, 28);
+            sageBooksComboBox.Size = new Size(956, 23);
             sageBooksComboBox.TabIndex = 14;
             // 
             // saveSageButton
             // 
-            saveSageButton.Location = new Point(1127, 6);
+            saveSageButton.Location = new Point(986, 4);
+            saveSageButton.Margin = new Padding(3, 2, 3, 2);
             saveSageButton.Name = "saveSageButton";
-            saveSageButton.Size = new Size(94, 29);
+            saveSageButton.Size = new Size(82, 22);
             saveSageButton.TabIndex = 13;
             saveSageButton.Text = "Save";
             saveSageButton.UseVisualStyleBackColor = true;
@@ -330,72 +345,75 @@
             // sageBooksLabel
             // 
             sageBooksLabel.AutoSize = true;
-            sageBooksLabel.Location = new Point(24, 239);
+            sageBooksLabel.Location = new Point(21, 179);
             sageBooksLabel.Name = "sageBooksLabel";
-            sageBooksLabel.Size = new Size(52, 20);
+            sageBooksLabel.Size = new Size(42, 15);
             sageBooksLabel.TabIndex = 11;
             sageBooksLabel.Text = "Books:";
             // 
             // sageCityListBox
             // 
             sageCityListBox.FormattingEnabled = true;
-            sageCityListBox.ItemHeight = 20;
+            sageCityListBox.ItemHeight = 15;
             sageCityListBox.Items.AddRange(new object[] { "Lviv", "Kyiv", "Kharkiv", "Odessa", "Dnipro", "Vinnytsia" });
-            sageCityListBox.Location = new Point(129, 192);
+            sageCityListBox.Location = new Point(113, 144);
+            sageCityListBox.Margin = new Padding(3, 2, 3, 2);
             sageCityListBox.Name = "sageCityListBox";
-            sageCityListBox.Size = new Size(1092, 24);
+            sageCityListBox.Size = new Size(956, 19);
             sageCityListBox.TabIndex = 10;
             sageCityListBox.Validating += sageCityListBox_Validating;
             // 
             // sageCityLabel
             // 
             sageCityLabel.AutoSize = true;
-            sageCityLabel.Location = new Point(24, 196);
+            sageCityLabel.Location = new Point(21, 147);
             sageCityLabel.Name = "sageCityLabel";
-            sageCityLabel.Size = new Size(37, 20);
+            sageCityLabel.Size = new Size(31, 15);
             sageCityLabel.TabIndex = 9;
             sageCityLabel.Text = "City:";
             // 
             // sageAgeNumericUpDown
             // 
-            sageAgeNumericUpDown.Location = new Point(129, 148);
+            sageAgeNumericUpDown.Location = new Point(113, 111);
+            sageAgeNumericUpDown.Margin = new Padding(3, 2, 3, 2);
             sageAgeNumericUpDown.Name = "sageAgeNumericUpDown";
-            sageAgeNumericUpDown.Size = new Size(1092, 27);
+            sageAgeNumericUpDown.Size = new Size(956, 23);
             sageAgeNumericUpDown.TabIndex = 8;
             sageAgeNumericUpDown.Validating += sageAgeNumericUpDown_Validating;
             // 
             // sageAgeLabel
             // 
             sageAgeLabel.AutoSize = true;
-            sageAgeLabel.Location = new Point(24, 150);
+            sageAgeLabel.Location = new Point(21, 112);
             sageAgeLabel.Name = "sageAgeLabel";
-            sageAgeLabel.Size = new Size(39, 20);
+            sageAgeLabel.Size = new Size(31, 15);
             sageAgeLabel.TabIndex = 7;
             sageAgeLabel.Text = "Age:";
             // 
             // sageNameTextBox
             // 
-            sageNameTextBox.Location = new Point(129, 101);
+            sageNameTextBox.Location = new Point(113, 76);
+            sageNameTextBox.Margin = new Padding(3, 2, 3, 2);
             sageNameTextBox.Name = "sageNameTextBox";
-            sageNameTextBox.Size = new Size(1092, 27);
+            sageNameTextBox.Size = new Size(956, 23);
             sageNameTextBox.TabIndex = 6;
             sageNameTextBox.Validating += sageNameTextBox_Validating;
             // 
             // sageNameLabel
             // 
             sageNameLabel.AutoSize = true;
-            sageNameLabel.Location = new Point(24, 104);
+            sageNameLabel.Location = new Point(21, 78);
             sageNameLabel.Name = "sageNameLabel";
-            sageNameLabel.Size = new Size(52, 20);
+            sageNameLabel.Size = new Size(42, 15);
             sageNameLabel.TabIndex = 5;
             sageNameLabel.Text = "Name:";
             // 
             // addSageLabel
             // 
             addSageLabel.AutoSize = true;
-            addSageLabel.Location = new Point(590, 13);
+            addSageLabel.Location = new Point(516, 10);
             addSageLabel.Name = "addSageLabel";
-            addSageLabel.Size = new Size(108, 20);
+            addSageLabel.Size = new Size(84, 15);
             addSageLabel.TabIndex = 2;
             addSageLabel.Text = "Add New Sage";
             addSageLabel.TextAlign = ContentAlignment.MiddleCenter;
@@ -406,16 +424,27 @@
             sagesDataGrid.AllowUserToDeleteRows = false;
             sagesDataGrid.AutoGenerateColumns = false;
             sagesDataGrid.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            sagesDataGrid.Columns.AddRange(new DataGridViewColumn[] { Photo, nameDataGridViewTextBoxColumn, ageDataGridViewTextBoxColumn, cityDataGridViewTextBoxColumn, Books });
+            sagesDataGrid.Columns.AddRange(new DataGridViewColumn[] { SageDetails, Photo, nameDataGridViewTextBoxColumn, ageDataGridViewTextBoxColumn, cityDataGridViewTextBoxColumn, Books });
             sagesDataGrid.DataSource = sageBindingSource;
-            sagesDataGrid.Location = new Point(21, 287);
+            sagesDataGrid.Location = new Point(18, 215);
+            sagesDataGrid.Margin = new Padding(3, 2, 3, 2);
             sagesDataGrid.Name = "sagesDataGrid";
             sagesDataGrid.ReadOnly = true;
             sagesDataGrid.RowHeadersWidth = 51;
             sagesDataGrid.RowTemplate.Height = 29;
-            sagesDataGrid.Size = new Size(1200, 293);
+            sagesDataGrid.Size = new Size(1050, 220);
             sagesDataGrid.TabIndex = 0;
+            sagesDataGrid.CellClick += sagesDataGrid_CellClick;
             sagesDataGrid.CellFormatting += sagesDataGrid_CellFormatting;
+            // 
+            // SageDetails
+            // 
+            SageDetails.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            SageDetails.HeaderText = "";
+            SageDetails.Name = "SageDetails";
+            SageDetails.ReadOnly = true;
+            SageDetails.Text = "Details";
+            SageDetails.Width = 5;
             // 
             // Photo
             // 
@@ -478,10 +507,11 @@
             // 
             // Form1
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1285, 637);
+            ClientSize = new Size(1124, 478);
             Controls.Add(tabControl1);
+            Margin = new Padding(3, 2, 3, 2);
             Name = "Form1";
             Text = "Form1";
             Load += Form1_Load;
@@ -532,14 +562,15 @@
         private Label selectedSagePhotoLabel;
         private Button sagePhotoButton;
         private OpenFileDialog openFileDialog1;
+        private DataGridViewLinkColumn Details;
+        private DataGridViewTextBoxColumn nameDataGridViewTextBoxColumn1;
+        private DataGridViewTextBoxColumn descriptionDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn Sages;
+        private DataGridViewLinkColumn SageDetails;
         private DataGridViewImageColumn Photo;
         private DataGridViewTextBoxColumn nameDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn ageDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn cityDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn Books;
-        private DataGridViewLinkColumn Details;
-        private DataGridViewTextBoxColumn nameDataGridViewTextBoxColumn1;
-        private DataGridViewTextBoxColumn descriptionDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn Sages;
     }
 }

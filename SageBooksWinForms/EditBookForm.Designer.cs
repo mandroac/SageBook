@@ -30,6 +30,7 @@
         {
             components = new System.ComponentModel.Container();
             bookSagesComboBox = new ComboBox();
+            sageBindingSource = new BindingSource(components);
             bookSagesLabel = new Label();
             bookDescriptionRichTextBox = new RichTextBox();
             bookNameTextBox = new TextBox();
@@ -38,7 +39,6 @@
             saveChangesButton = new Button();
             deleteBookButton = new Button();
             cancelButton = new Button();
-            sageBindingSource = new BindingSource(components);
             ((System.ComponentModel.ISupportInitialize)sageBindingSource).BeginInit();
             SuspendLayout();
             // 
@@ -51,6 +51,11 @@
             bookSagesComboBox.Name = "bookSagesComboBox";
             bookSagesComboBox.Size = new Size(546, 28);
             bookSagesComboBox.TabIndex = 21;
+            bookSagesComboBox.ValueMember = "Sage.Name";
+            // 
+            // sageBindingSource
+            // 
+            sageBindingSource.DataSource = typeof(Domain.Models.Sage);
             // 
             // bookSagesLabel
             // 
@@ -103,6 +108,7 @@
             saveChangesButton.TabIndex = 22;
             saveChangesButton.Text = "Save changes";
             saveChangesButton.UseVisualStyleBackColor = false;
+            saveChangesButton.Click += saveChangesButton_Click;
             // 
             // deleteBookButton
             // 
@@ -113,6 +119,7 @@
             deleteBookButton.TabIndex = 23;
             deleteBookButton.Text = "Delete book";
             deleteBookButton.UseVisualStyleBackColor = false;
+            deleteBookButton.Click += deleteBookButton_Click;
             // 
             // cancelButton
             // 
@@ -122,10 +129,7 @@
             cancelButton.TabIndex = 24;
             cancelButton.Text = "Cancel";
             cancelButton.UseVisualStyleBackColor = true;
-            // 
-            // sageBindingSource
-            // 
-            sageBindingSource.DataSource = typeof(Domain.Models.Sage);
+            cancelButton.Click += cancelButton_Click;
             // 
             // EditBookForm
             // 
