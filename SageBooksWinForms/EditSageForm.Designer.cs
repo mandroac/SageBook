@@ -185,6 +185,7 @@
             // openFileDialog1
             // 
             openFileDialog1.FileName = "openFileDialog1";
+            openFileDialog1.Filter = "Image Files|*.jpg;*.jpeg;*.png";
             // 
             // sageBooksCheckedListBox
             // 

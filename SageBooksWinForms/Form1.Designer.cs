@@ -38,25 +38,22 @@
             editBookButton = new Button();
             createBookButton = new Button();
             booksDataGrid = new DataGridView();
+            nameDataGridViewTextBoxColumn1 = new DataGridViewTextBoxColumn();
+            descriptionDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            Sages = new DataGridViewTextBoxColumn();
             bookBindingSource = new BindingSource(components);
             sagesTab = new TabPage();
             deleteSageButton = new Button();
             editSageButton = new Button();
             createSageButton = new Button();
             sagesDataGrid = new DataGridView();
-            sageBindingSource = new BindingSource(components);
-            sageBookDbContextBindingSource = new BindingSource(components);
-            sagesErrorProvider = new ErrorProvider(components);
-            booksErrorProvider = new ErrorProvider(components);
-            openFileDialog1 = new OpenFileDialog();
-            nameDataGridViewTextBoxColumn1 = new DataGridViewTextBoxColumn();
-            descriptionDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            Sages = new DataGridViewTextBoxColumn();
             Photo = new DataGridViewImageColumn();
             nameDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             ageDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             cityDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             Books = new DataGridViewTextBoxColumn();
+            sageBindingSource = new BindingSource(components);
+            sageBookDbContextBindingSource = new BindingSource(components);
             tabControl1.SuspendLayout();
             booksTab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)booksDataGrid).BeginInit();
@@ -65,8 +62,6 @@
             ((System.ComponentModel.ISupportInitialize)sagesDataGrid).BeginInit();
             ((System.ComponentModel.ISupportInitialize)sageBindingSource).BeginInit();
             ((System.ComponentModel.ISupportInitialize)sageBookDbContextBindingSource).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)sagesErrorProvider).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)booksErrorProvider).BeginInit();
             SuspendLayout();
             // 
             // tabControl1
@@ -150,6 +145,39 @@
             booksDataGrid.CellClick += booksDataGrid_CellClick;
             booksDataGrid.CellFormatting += booksDataGrid_CellFormatting;
             // 
+            // nameDataGridViewTextBoxColumn1
+            // 
+            nameDataGridViewTextBoxColumn1.DataPropertyName = "Name";
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            nameDataGridViewTextBoxColumn1.DefaultCellStyle = dataGridViewCellStyle1;
+            nameDataGridViewTextBoxColumn1.HeaderText = "Name";
+            nameDataGridViewTextBoxColumn1.MinimumWidth = 200;
+            nameDataGridViewTextBoxColumn1.Name = "nameDataGridViewTextBoxColumn1";
+            nameDataGridViewTextBoxColumn1.ReadOnly = true;
+            nameDataGridViewTextBoxColumn1.Width = 200;
+            // 
+            // descriptionDataGridViewTextBoxColumn
+            // 
+            descriptionDataGridViewTextBoxColumn.DataPropertyName = "Description";
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
+            descriptionDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle2;
+            descriptionDataGridViewTextBoxColumn.HeaderText = "Description";
+            descriptionDataGridViewTextBoxColumn.MinimumWidth = 300;
+            descriptionDataGridViewTextBoxColumn.Name = "descriptionDataGridViewTextBoxColumn";
+            descriptionDataGridViewTextBoxColumn.ReadOnly = true;
+            descriptionDataGridViewTextBoxColumn.Width = 500;
+            // 
+            // Sages
+            // 
+            Sages.DataPropertyName = "Sages";
+            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
+            Sages.DefaultCellStyle = dataGridViewCellStyle3;
+            Sages.HeaderText = "Sages";
+            Sages.MinimumWidth = 200;
+            Sages.Name = "Sages";
+            Sages.ReadOnly = true;
+            Sages.Width = 297;
+            // 
             // bookBindingSource
             // 
             bookBindingSource.DataSource = typeof(Domain.Models.Book);
@@ -223,59 +251,6 @@
             sagesDataGrid.CellClick += sagesDataGrid_CellClick;
             sagesDataGrid.CellFormatting += sagesDataGrid_CellFormatting;
             // 
-            // sageBindingSource
-            // 
-            sageBindingSource.DataSource = typeof(Domain.Models.Sage);
-            // 
-            // sageBookDbContextBindingSource
-            // 
-            sageBookDbContextBindingSource.DataSource = typeof(DataAccess.SageBookDbContext);
-            // 
-            // sagesErrorProvider
-            // 
-            sagesErrorProvider.ContainerControl = this;
-            // 
-            // booksErrorProvider
-            // 
-            booksErrorProvider.ContainerControl = this;
-            // 
-            // openFileDialog1
-            // 
-            openFileDialog1.FileName = "openFileDialog1";
-            // 
-            // nameDataGridViewTextBoxColumn1
-            // 
-            nameDataGridViewTextBoxColumn1.DataPropertyName = "Name";
-            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
-            nameDataGridViewTextBoxColumn1.DefaultCellStyle = dataGridViewCellStyle1;
-            nameDataGridViewTextBoxColumn1.HeaderText = "Name";
-            nameDataGridViewTextBoxColumn1.MinimumWidth = 200;
-            nameDataGridViewTextBoxColumn1.Name = "nameDataGridViewTextBoxColumn1";
-            nameDataGridViewTextBoxColumn1.ReadOnly = true;
-            nameDataGridViewTextBoxColumn1.Width = 200;
-            // 
-            // descriptionDataGridViewTextBoxColumn
-            // 
-            descriptionDataGridViewTextBoxColumn.DataPropertyName = "Description";
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
-            descriptionDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle2;
-            descriptionDataGridViewTextBoxColumn.HeaderText = "Description";
-            descriptionDataGridViewTextBoxColumn.MinimumWidth = 300;
-            descriptionDataGridViewTextBoxColumn.Name = "descriptionDataGridViewTextBoxColumn";
-            descriptionDataGridViewTextBoxColumn.ReadOnly = true;
-            descriptionDataGridViewTextBoxColumn.Width = 500;
-            // 
-            // Sages
-            // 
-            Sages.DataPropertyName = "Sages";
-            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
-            Sages.DefaultCellStyle = dataGridViewCellStyle3;
-            Sages.HeaderText = "Sages";
-            Sages.MinimumWidth = 200;
-            Sages.Name = "Sages";
-            Sages.ReadOnly = true;
-            Sages.Width = 297;
-            // 
             // Photo
             // 
             Photo.DataPropertyName = "Photo";
@@ -322,6 +297,14 @@
             Books.ReadOnly = true;
             Books.Width = 342;
             // 
+            // sageBindingSource
+            // 
+            sageBindingSource.DataSource = typeof(Domain.Models.Sage);
+            // 
+            // sageBookDbContextBindingSource
+            // 
+            sageBookDbContextBindingSource.DataSource = typeof(DataAccess.SageBookDbContext);
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -340,8 +323,6 @@
             ((System.ComponentModel.ISupportInitialize)sagesDataGrid).EndInit();
             ((System.ComponentModel.ISupportInitialize)sageBindingSource).EndInit();
             ((System.ComponentModel.ISupportInitialize)sageBookDbContextBindingSource).EndInit();
-            ((System.ComponentModel.ISupportInitialize)sagesErrorProvider).EndInit();
-            ((System.ComponentModel.ISupportInitialize)booksErrorProvider).EndInit();
             ResumeLayout(false);
         }
 
@@ -353,9 +334,6 @@
         private BindingSource bookBindingSource;
         private DataGridView sagesDataGrid;
         private BindingSource sageBindingSource;
-        private ErrorProvider sagesErrorProvider;
-        private ErrorProvider booksErrorProvider;
-        private OpenFileDialog openFileDialog1;
         private BindingSource sageBookDbContextBindingSource;
         private Button createBookButton;
         private Button editBookButton;
