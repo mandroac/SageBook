@@ -106,6 +106,15 @@ namespace SageBookMvc.Controllers
                     sage.Age = editSage.Sage.Age;
                     sage.Books = selectedBooks.ToList();
 
+                    var photos = Request.Form.Files;
+                    if (photos != null && photos.Any())
+                    {
+                        using var ms = new MemoryStream();
+                        photos[0].OpenReadStream().CopyTo(ms);
+                        ms.Seek(0, SeekOrigin.Begin);
+                        sage.Photo = ms.ToArray();
+                    }
+
                     await _sageRepository.UpdateAsync(sage);
                 }
                 catch (DbUpdateConcurrencyException)

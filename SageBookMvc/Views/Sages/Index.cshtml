@@ -3,14 +3,20 @@
 @{
     ViewData["Title"] = "Index";
 
-    // TODO: handle null pictures
-    // Store all photos as base64 strings
-    // var images = new Dictionary<Guid, string>();
-    // foreach(var item in Model)
-    // {
-    //     var imgBase64 = Convert.ToBase64String(item.Photo);
-    //     images.Add(item.Id, "data:image/png;base64," + imgBase64);
-    // }
+    var images = new Dictionary<Guid, string>();
+    foreach(var item in Model)
+    {
+        if(item.Photo is null)
+        {
+            images.Add(item.Id, "/images/default.png");
+        }
+        else
+        {
+            //Store photo as base64 string
+            var imgBase64 = Convert.ToBase64String(item.Photo);
+            images.Add(item.Id, "data:image/png;base64," + imgBase64);
+        }
+    }
 }
 
 <h1>Sages</h1>
@@ -27,9 +33,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.Age)
             </th>
-            @* <th>
+            <th>
                 @Html.DisplayNameFor(model => model.Photo)
-            </th> *@
+            </th>
             <th>
                 @Html.DisplayNameFor(model => model.City)
             </th>
@@ -48,9 +54,9 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Age)
             </td>
-            @* <td>
-                <img src="@images[item.Id]" >
-            </td> *@
+            <td>
+                <img src="@images[item.Id]" width="300" height="300" >
+            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.City)
             </td>
