@@ -1,0 +1,49 @@
+﻿@using Domain.Models;
+@using SageBookMvc.Controllers;
+@using SageBookMvc.Extensions;
+@model IEnumerable<Book>
+@{
+    ViewData["Title"] = "Shopping Cart";
+}
+
+<h1>Shopping Cart</h1>
+
+@if (Model is not null && Model.Any())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Description)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var book in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => book.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => book.Description)
+                    </td>
+                    <td>
+                        <a asp-action="RemoveFromCart" asp-route-bookId="@book.Id">Remove item</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div>
+        <a asp-action="SubmitOrder" class="btn btn-primary" style="margin-top: 10px">Submit Order</a>
+    </div>
+}
+else
+{
+    <h3>No items</h3>
+}

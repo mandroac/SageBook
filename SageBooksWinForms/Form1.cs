@@ -7,10 +7,11 @@ namespace SageBooksWinForms
 {
     public partial class Form1 : Form
     {
+        private const string _connectionString = "Server=DESKTOP-F0TNHT6\\MSSQLDEV; Database=SageBooks; Integrated Security=true; Trusted_Connection=true; TrustServerCertificate=True;";
         private protected SageBookDbContext _dbContext;
         public Form1()
         {
-            _dbContext = new SageBookDbContext();
+            _dbContext = new SageBookDbContext(_connectionString);
             InitializeComponent();
         }
 

@@ -1,0 +1,11 @@
+﻿@using Domain.Models;
+@using SageBookMvc.Extensions;
+
+<ul class="navbar-nav">
+    @if (Context.Session.GetBooks() is List<Book> books && books.Any())
+    {
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-controller="Home" asp-action="ShoppingCart">View Cart (@books.Count)</a>
+        </li>
+    }
+</ul>

@@ -2,11 +2,8 @@
 
 namespace Domain.Models
 {
-    public class Book
+    public class Book : BaseModel
     {
-        [Key]
-        public Guid Id { get; set; }
-
         [Required, MaxLength(50)]
         public string Name { get; set; }
 

@@ -1,0 +1,44 @@
+﻿@using Domain.Interfaces;
+@model EditBookViewModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Book</h4>
+<hr />
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Book.Name" class="control-label"></label>
+                <input asp-for="Book.Name" class="form-control" />
+                <span asp-validation-for="Book.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Book.Description" class="control-label"></label>
+                <input asp-for="Book.Description" class="form-control" />
+                <span asp-validation-for="Book.Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Book.Sages" class="control-label"></label>
+                @Html.ListBoxFor(m => m.SelectedSageIds, Model.SagesSelectedList, new { @class = "form-control" })
+                <span asp-validation-for="Book.Sages" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" style="margin-top: 10px"/>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
