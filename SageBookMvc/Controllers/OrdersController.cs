@@ -13,10 +13,16 @@ namespace SageBookMvc.Controllers
         }
 
         // GET: OrderController
-        public async Task<ActionResult> Index()
+        public async Task<IActionResult> Index()
         {
             var orders = await _orderRepository.GetAllAsync();
             return View(orders);
+        }
+
+        public async Task<IActionResult> Details(Guid orderId)
+        {
+            var order = await _orderRepository.GetAsync(orderId);
+            return View(order);
         }
     }
 }

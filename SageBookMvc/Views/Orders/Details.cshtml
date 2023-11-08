@@ -1,0 +1,48 @@
+﻿@using Domain.Constants;
+@model Domain.Models.Order
+
+@{
+    ViewData["Title"] = "Order details";
+}
+<h1>Thank you for submitting new order!</h1>
+<h5>Please view the order details below for reference.</h5>
+
+<table>
+    <tr>
+        <th>
+            Order number
+        </th>
+        <td>
+            @Model.OrderNumber
+        </td>
+    </tr>
+    <tr>
+        <th>
+            User email
+        </th>
+        <td>
+            @Model.User.Email
+        </td>
+    </tr>
+    <tr>
+        <th>
+            Books
+        </th>
+        <td>
+            <ul>
+                @foreach (var book in Model.Books)
+                {
+                    <li>@book</li>
+                }
+            </ul>
+        </td>
+    </tr>
+</table>
+<div>
+    <a asp-action="Index" asp-controller="Home">Back home</a>
+    @if (User.IsInRole(AppRoles.Admin))
+    {
+        <a asp-action="Index">View all orders</a>
+    }
+</div>
+    

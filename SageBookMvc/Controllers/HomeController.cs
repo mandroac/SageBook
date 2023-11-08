@@ -36,7 +36,7 @@ namespace SageBookMvc.Controllers
             var userId = User.GetUserId();
             if (userId == Guid.Empty)
             {
-                return Problem("Failed to determine user identity");
+                return RedirectToAction(nameof(AccountController.Login), "Account");
             }
 
             var selectedBooks = HttpContext.Session.GetBooks();
@@ -50,13 +50,14 @@ namespace SageBookMvc.Controllers
             var order = new Order
             {
                 Books = books.ToList(),
-                UserId = userId
+                UserId = User.GetUserId()
             };
-            await _orderRepository.CreateAsync(order);
+            var result = await _orderRepository.CreateAsync(order);
 
             HttpContext.Session.SetObject(null, ShoppingCartSessionKey);
 
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(OrdersController.Details), "Orders", new { orderId = result.Id });
+            // return RedirectToAction(nameof(Index));
         }
 
         public async Task<IActionResult> AddToCart(Guid bookId)

@@ -44,9 +44,9 @@ namespace SageBookMvc.Controllers
             }
         }
 
-        public ActionResult Register()
+        public IActionResult Register()
         {
-            return View();
+            return View(new RegisterViewModel());
         }
 
         [HttpPost]
@@ -66,6 +66,7 @@ namespace SageBookMvc.Controllers
                     var roleResult = await _userManager.AddToRoleAsync(user, AppRoles.User);
                     if (roleResult.Succeeded)
                     {
+                        await _signInManager.PasswordSignInAsync(user, registerModel.Password, false, false);
                         return RedirectToAction("Index", "Home");
                     }
                     else
@@ -84,6 +85,12 @@ namespace SageBookMvc.Controllers
             {
                 return View(registerModel);
             }
+        }
+
+        public IActionResult Logout()
+        {
+            _signInManager.SignOutAsync();
+            return RedirectToAction(nameof(Index), "Home");
         }
     }
 }
