@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Newtonsoft.Json;
+using System.ComponentModel.DataAnnotations;
 
 namespace Domain.Models
 {
@@ -10,6 +11,7 @@ namespace Domain.Models
         [Required]
         public int Age { get; set; }
 
+        [JsonIgnore]
         public byte[] Photo { get; set; }
 
         [Required, MaxLength(100)]
