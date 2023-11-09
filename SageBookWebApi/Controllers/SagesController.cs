@@ -1,7 +1,9 @@
 ﻿using Domain.Interfaces;
 using Domain.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SageBookWebApi.Requests;
+using Swashbuckle.AspNetCore.Annotations;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -9,6 +11,7 @@ namespace SageBookWebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize("RequireAdmin")]
     public class SagesController : ControllerBase
     {
         private readonly IBookRepository _bookRepository;
@@ -22,6 +25,8 @@ namespace SageBookWebApi.Controllers
 
         // GET: api/<SagesController>
         [HttpGet]
+        [AllowAnonymous]
+        [SwaggerOperation("Get all sages.")]
         public async Task<IActionResult> GetAsync()
         {
             var sages = await _sageRepository.GetAllAsync();
@@ -30,6 +35,8 @@ namespace SageBookWebApi.Controllers
 
         // GET api/<SagesController>/{id}
         [HttpGet("{id}")]
+        [AllowAnonymous]
+        [SwaggerOperation("Get a single sage by id.")]
         public async Task<IActionResult> GetAsync(Guid id)
         {
             var sage = await _sageRepository.GetAsync(id);
@@ -38,6 +45,7 @@ namespace SageBookWebApi.Controllers
 
         // POST api/<SagesController>
         [HttpPost]
+        [SwaggerOperation("ADMIN ONLY. Create new sage.")]
         public async Task<IActionResult> PostAsync([FromBody] SageRequest sageRequest)
         {
             var sage = new Sage
@@ -68,6 +76,7 @@ namespace SageBookWebApi.Controllers
 
         // PUT api/<SagesController>/{id}
         [HttpPut("{id}")]
+        [SwaggerOperation("ADMIN ONLY. Update existing sage.")]
         public async Task<IActionResult> PutAsync(Guid id, [FromBody] SageRequest sageRequest)
         {
             var sage = await _sageRepository.GetAsync(id);
@@ -104,6 +113,7 @@ namespace SageBookWebApi.Controllers
 
         // DELETE api/<SagesController>/{id}
         [HttpDelete("{id}")]
+        [SwaggerOperation("ADMIN ONLY. Delete sage.")]
         public async Task<IActionResult> DeleteAsync(Guid id)
         {
             var sage = await _sageRepository.GetAsync(id);

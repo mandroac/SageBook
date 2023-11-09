@@ -1,7 +1,9 @@
 ﻿using Domain.Interfaces;
 using Domain.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SageBookWebApi.Requests;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace SageBookWebApi.Controllers
 {
@@ -20,8 +22,7 @@ namespace SageBookWebApi.Controllers
 
         // GET: api/<BooksController>
         [HttpGet]
-        //[SwaggerResponse(HttpStatusCode.OK, Type = typeof(IEnumerable<Country>))]
-        //[SwaggerResponseExample(HttpStatusCode.OK, typeof(CountryExamples))]
+        [SwaggerOperation("Get all books.")]
         public async Task<IActionResult> GetAsync()
         {
             var books = await _bookRepository.GetAllAsync();
@@ -30,6 +31,7 @@ namespace SageBookWebApi.Controllers
 
         // GET api/<BooksController>/{id}
         [HttpGet("{id}")]
+        [SwaggerOperation("Get single book by id.")]
         public async Task<IActionResult> GetAsync(Guid id)
         {
             var book = await _bookRepository.GetAsync(id);
@@ -38,6 +40,8 @@ namespace SageBookWebApi.Controllers
 
         // POST api/<BooksController>
         [HttpPost]
+        [Authorize("RequireAdmin")]
+        [SwaggerOperation("ADMIN ONLY. Create a new book.")]
         public async Task<IActionResult> PostAsync([FromBody] BookRequest bookRequest)
         {
             var book = new Book
@@ -58,6 +62,8 @@ namespace SageBookWebApi.Controllers
 
         // PUT api/<BooksController>/{id}
         [HttpPut("{id}")]
+        [Authorize("RequireAdmin")]
+        [SwaggerOperation("ADMIN ONLY. Update existing book.")]
         public async Task<IActionResult> PutAsync(Guid id, [FromBody] BookRequest bookRequest)
         {
             var book = await _bookRepository.GetAsync(id);
@@ -84,6 +90,8 @@ namespace SageBookWebApi.Controllers
 
         // DELETE api/<BooksController>/{id}
         [HttpDelete("{id}")]
+        [Authorize("RequireAdmin")]
+        [SwaggerOperation("ADMIN ONLY. Delete book.")]
         public async Task<IActionResult> Delete(Guid id)
         {
             var book = await _bookRepository.GetAsync(id);

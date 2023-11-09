@@ -1,6 +1,7 @@
 ﻿using Domain.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using SageBookWebApi.Extensions;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace SageBookWebApi.Controllers
 {
@@ -17,6 +18,7 @@ namespace SageBookWebApi.Controllers
         }
 
         [HttpPost("AddBook/{id}")]
+        [SwaggerOperation("Add book to a shopping cart.")]
         public async Task<IActionResult> AddBookAsync(Guid id)
         {
             var book = await _bookRepository.GetAsync(id);
@@ -31,6 +33,7 @@ namespace SageBookWebApi.Controllers
         }
 
         [HttpDelete("RemoveBook/{id}")]
+        [SwaggerOperation("Remove book from a shopping cart.")]
         public IActionResult RemoveBook(Guid id)
         {
             HttpContext.Session.RemoveBook(id);
@@ -38,6 +41,7 @@ namespace SageBookWebApi.Controllers
         }
 
         [HttpGet]
+        [SwaggerOperation("Get shopping cart items.")]
         public IActionResult Get()
         {
             return Ok(HttpContext.Session.GetBooks());
