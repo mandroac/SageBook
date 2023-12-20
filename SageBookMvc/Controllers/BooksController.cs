@@ -1,7 +1,10 @@
 ﻿using Domain.Interfaces;
+using Domain.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using SageBookMvc.Extensions;
+using SageBookMvc.Hubs;
 using SageBookMvc.Models;
 
 namespace SageBookMvc.Controllers
@@ -10,11 +13,16 @@ namespace SageBookMvc.Controllers
     {
         private readonly IBookRepository _bookRepository;
         private readonly ISageRepository _sageRepository;
+        private readonly ChatHub _chatHub;
 
-        public BooksController(IBookRepository bookRepository, ISageRepository sageRepository)
+        public BooksController(
+            IBookRepository bookRepository,
+            ISageRepository sageRepository,
+            ChatHub chatHub)
         {
             _bookRepository = bookRepository;
             _sageRepository = sageRepository;
+            _chatHub = chatHub;
         }
 
         // GET: Books
@@ -138,6 +146,25 @@ namespace SageBookMvc.Controllers
             var result = await _bookRepository.DeleteAsync(id);
 
             return result == null ? Problem($"Book with id {id} was not found.") : RedirectToAction(nameof(Index));
+        }
+
+        public async Task<IActionResult> SendMessage(string messageContent, Guid bookId)
+        {
+            var userId = User.GetUserId();
+            var message = new Message
+            {
+                SenderId = userId,
+                SendDate = DateTime.Now,
+                Content = messageContent,
+                BookId = bookId
+            };
+
+            var book = await _bookRepository.GetAsync(bookId);
+            book.Messages.Add(message);
+            await _bookRepository.UpdateAsync(book);
+            await _chatHub.SendMessageAsync(message);
+
+            return Ok();
         }
 
         private bool BookExists(Guid id) => _bookRepository.GetAsync(id) != null;

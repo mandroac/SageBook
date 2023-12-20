@@ -17,6 +17,7 @@ namespace DataAccess
         public DbSet<Book> Books { get; set; }
         public DbSet<Sage> Sages { get; set; }
         public DbSet<Order> Orders { get; set; }
+        public DbSet<Message> Messages { get; set; }
 
         private static DbContextOptions GetOptions(string connectionString)
         {
@@ -31,6 +32,11 @@ namespace DataAccess
                 .Ignore(c => c.PhoneNumberConfirmed)
                 .Ignore(c => c.PhoneNumber);
 
+            builder.Entity<Book>(opts =>
+            {
+                opts.HasMany(b => b.Messages).WithOne().HasForeignKey(m => m.BookId);
+            });
+
             builder.Entity<Order>(opts =>
             {
                 opts.HasMany(o => o.Books)
@@ -41,6 +47,11 @@ namespace DataAccess
 
                 opts.HasIndex(o => o.OrderNumber);
                 opts.Property(o => o.OrderNumber).UseIdentityColumn(1000, 1);
+            });
+
+            builder.Entity<Message>(opts =>
+            {
+                opts.HasOne(m => m.Sender).WithMany().HasForeignKey(m => m.SenderId);
             });
         }
     }

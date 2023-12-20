@@ -1,0 +1,87 @@
+﻿@using Domain.Models;
+@using Microsoft.AspNetCore.Components;
+@using Microsoft.AspNetCore.SignalR;
+@using Microsoft.AspNetCore.SignalR.Client;
+@using Microsoft.EntityFrameworkCore.Metadata.Internal;
+@using SageBookMvc.Extensions;
+@model Book;
+
+@if (Model.Messages is not null && Model.Messages.Any())
+{
+    <div>
+        <table class="chat-table">
+            <colgroup>
+                <col style="width:20%">
+                <col style="width:60%">
+                <col style="width:20%">
+            </colgroup>
+            <thead>
+                <tr>
+                    <th>
+                        Sender
+                    </th>
+                    <th>
+                        Content
+                    </th>
+                    <th>
+                        Time
+                    </th>
+                </tr>
+            </thead>
+            <tbody id="discussion_@Model.Id">
+                @foreach (var message in Model.Messages)
+                {
+                    <tr>
+                        <td style="text-align:center">
+                            @message.Sender.Email
+                        </td>
+                        <td>
+                            @message.Content
+                        </td>
+                        <td style="text-align:center">
+                            @message.SendDate.ToString("dd MMM, HH:mm:ss")
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+else
+{
+    <h6>The discussion is empty at the moment. Send new message to start a conversation.</h6>
+}
+<br />
+@if (User.Identity.IsAuthenticated)
+{
+    <div>
+        <form>
+            <textarea id="txtMessage" name="content" style="width: 100%" placeholder="Type your message here..."></textarea>
+            <input id="btnSendMessage" type="button" value="Send message" class="btn btn-primary" />
+        </form>
+    </div>
+}
+else
+{
+    <h6>Please log in to join the conversation.</h6>
+}
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/microsoft/signalr/dist/browser/signalr.js"></script>
+<script src="~/js/chat.js"></script>
+
+<script>
+    $(function () {
+        $('#btnSendMessage').click((e) => {
+            console.log("sending message")
+            var url = '/Books/SendMessage';
+            var message = $('textarea#txtMessage').val();
+            $.post(url, { messageContent: message, bookId: '@Model.Id' })
+                .done(() => {
+                    console.log('message sent successfully');
+                    $('textarea#txtMessage').val('')
+                })
+                .fail((err) => console.log(err))
+        })
+    })
+</script>

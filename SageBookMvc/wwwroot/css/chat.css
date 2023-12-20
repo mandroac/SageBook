@@ -1,0 +1,14 @@
+﻿table.chat-table {
+    border: 1px solid black;
+    width: 100%
+}
+
+    table.chat-table td {
+        border: 1px solid black;
+        padding: 0px 10px;
+    }
+
+    table.chat-table th {
+        border: 1px solid black;
+        text-align: center;
+    }

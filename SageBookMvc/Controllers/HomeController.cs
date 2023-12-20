@@ -82,5 +82,10 @@ namespace SageBookMvc.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+        public IActionResult Details(Guid id)
+        {
+            return RedirectToAction("Details", "Books", new { id });
+        }
     }
 }

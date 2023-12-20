@@ -14,6 +14,10 @@ namespace DataAccess.Repositories
             await DbContext.Books.Include(b => b.Sages).ToListAsync();
 
         public override async Task<Book> GetAsync(Guid id) =>
-            await DbContext.Books.Include(b => b.Sages).SingleOrDefaultAsync(b => b.Id == id);
+            await DbContext.Books
+                .Include(b => b.Sages)
+                .Include(b => b.Messages)
+                    .ThenInclude(m => m.Sender)
+                .SingleOrDefaultAsync(b => b.Id == id);
     }
 }
