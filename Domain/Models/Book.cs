@@ -10,7 +10,7 @@ namespace Domain.Models
         [Required, MaxLength(500)]
         public string Description { get; set; }
         public ICollection<Sage> Sages { get; set; }
-        public ICollection<Message> Messages { get; set; }
+        public ICollection<BookMessage> Messages { get; set; }
 
         public override string ToString()
         {

@@ -5,9 +5,14 @@ namespace SageBookMvc.Hubs
 {
     public class ChatHub : Hub
     {
-        public async Task SendMessageAsync(Message message)
+        public async Task SendBookMessageAsync(BookMessage message)
         {
-            await Clients.All.SendAsync("ReceiveChatMessage", message);
+            await Clients.All.SendAsync("ReceiveBookChatMessage", message);
+        }
+
+        public async Task SendUserMessageAsync(UserMessage message)
+        {
+            await Clients.All.SendAsync("ReceiveUserChatMessage", message);
         }
     }
 }

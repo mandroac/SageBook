@@ -12,5 +12,6 @@ namespace Domain.Models
 
         public AppUser User { get; set; }
         public ICollection<Book> Books { get; set; }
+        public ICollection<UserMessage> SentMessages { get; set; }
     }
 }

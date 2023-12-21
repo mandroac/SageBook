@@ -38,6 +38,8 @@ builder.Services.AddSession();
 builder.Services.AddScoped<IBookRepository, BookRepository>();
 builder.Services.AddScoped<ISageRepository, SageRepository>();
 builder.Services.AddScoped<IOrderRepository, OrderRepository>();
+builder.Services.AddScoped<IUserMessageRepository, UserMessageRepository>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddSingleton<ChatHub>();
 
 var app = builder.Build();

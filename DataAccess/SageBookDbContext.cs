@@ -17,7 +17,8 @@ namespace DataAccess
         public DbSet<Book> Books { get; set; }
         public DbSet<Sage> Sages { get; set; }
         public DbSet<Order> Orders { get; set; }
-        public DbSet<Message> Messages { get; set; }
+        public DbSet<BookMessage> BookMessages { get; set; }
+        public DbSet<UserMessage> UserMessages { get; set; }
 
         private static DbContextOptions GetOptions(string connectionString)
         {
@@ -49,9 +50,17 @@ namespace DataAccess
                 opts.Property(o => o.OrderNumber).UseIdentityColumn(1000, 1);
             });
 
-            builder.Entity<Message>(opts =>
+            builder.Entity<BookMessage>(opts =>
             {
+                opts.ToTable("BookMessages");
                 opts.HasOne(m => m.Sender).WithMany().HasForeignKey(m => m.SenderId);
+            });
+
+            builder.Entity<UserMessage>(opts =>
+            {
+                opts.ToTable("UserMessages");
+                opts.HasOne(m => m.Sender).WithMany().HasForeignKey(m => m.SenderId).OnDelete(DeleteBehavior.NoAction);
+                opts.HasOne(m => m.Receiver).WithMany().HasForeignKey(m => m.ReceiverId).OnDelete(DeleteBehavior.NoAction);
             });
         }
     }

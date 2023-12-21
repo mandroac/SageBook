@@ -1,10 +1,14 @@
 ﻿@using Domain.Models;
-@using Microsoft.AspNetCore.Components;
-@using Microsoft.AspNetCore.SignalR;
-@using Microsoft.AspNetCore.SignalR.Client;
-@using Microsoft.EntityFrameworkCore.Metadata.Internal;
 @using SageBookMvc.Extensions;
-@model Book;
+@model UserChatViewModel
+
+@{
+    var currentUserId = User.GetUserId();
+    var currentUser = Model.FirstUser.Id == currentUserId ? Model.FirstUser : Model.SecondUser;
+    var collocutor = Model.FirstUser.Id == currentUserId ? Model.SecondUser : Model.FirstUser;
+}
+
+<h4>Your chat with @collocutor.Email user</h4>
 
 @if (Model.Messages is not null && Model.Messages.Any())
 {
@@ -12,9 +16,8 @@
         <table class="chat-table">
             <colgroup>
                 <col style="width:20%">
-                <col style="width:50%">
+                <col style="width:60%">
                 <col style="width:20%">
-                <col style="width:10%">
             </colgroup>
             <thead>
                 <tr>
@@ -27,13 +30,13 @@
                     <th>
                         Time
                     </th>
-                    <th />
                 </tr>
             </thead>
-            <tbody id="discussion_@Model.Id">
+            <tbody id="conversation">
                 @foreach (var message in Model.Messages)
                 {
-                    <tr>
+                    var messageColor = message.SenderId == currentUserId ? "#faebd7" : "#a3b8c5";
+                    <tr style="background-color: '@messageColor'">
                         <td style="text-align:center">
                             @message.Sender.Email
                         </td>
@@ -42,12 +45,6 @@
                         </td>
                         <td style="text-align:center">
                             @message.SendDate.ToString("dd MMM, HH:mm:ss")
-                        </td>
-                        <td>
-                            @if(message.SenderId != User.GetUserId())
-                            {
-                                <a asp-controller="Chat" asp-action="UserChat" asp-route-collocutorId="@message.SenderId">DM</a>
-                            }
                         </td>
                     </tr>
                 }
@@ -82,9 +79,9 @@ else
     $(function () {
         $('#btnSendMessage').click((e) => {
             console.log("sending message")
-            var url = '/Chat/SendBookMessage';
+            var url = '/Chat/SendUserMessage';
             var message = $('textarea#txtMessage').val();
-            $.post(url, { messageContent: message, bookId: '@Model.Id' })
+            $.post(url, { messageContent: message, collocutorId: '@collocutor.Id' })
                 .done(() => {
                     console.log('message sent successfully');
                     $('textarea#txtMessage').val('')
